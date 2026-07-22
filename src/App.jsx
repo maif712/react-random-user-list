@@ -1,121 +1,89 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import React, { useState } from 'react'
+import CardHeader from './components/CardHeader'
+import UserForm from './components/UserForm'
+import UserTable from './components/UserTable'
+import UserInfo from './components/UserInfo'
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+
+  const [usersList, setUsersList] = useState([])
+  const [selectedUser, setSelectedUser] = useState(null)
+
+  const addUser = (newUser) => {
+    setUsersList(prev => [...prev, newUser])
+  }
+
+  const handleRandomUser = () => {
+    const rndNumber = Math.floor(Math.random() * usersList.length)
+    const user = usersList[rndNumber]
+    setSelectedUser(user)
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="app-container">
 
-      <div className="ticks"></div>
+      <div className="main-grid">
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        <div className="left-column">
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+          <div className="card form-card">
+            <CardHeader handlRndUser={handleRandomUser} />
+            <UserForm handleAddUser={addUser} />
+          </div>
+
+          <div className="card list-card">
+            <div className="card-header flex-between">
+              <div className="header-title-group">
+                <div className="icon-box purple-bg">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                    strokeLinejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                  </svg>
+                </div>
+                <h2 className="card-title">Users List</h2>
+              </div>
+              <div className="badge-count">{usersList.length}</div>
+            </div>
+
+            <div className="table-container">
+              {
+                usersList.length === 0 ?
+                <p className='empty'>No user Yet!</p>
+                :
+                <UserTable userData={usersList}/>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div className="right-column">
+          <div className="card result-card">
+            <div className="card-header flex-start">
+              <div className="icon-box light-purple-bg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                  fill="none" stroke="#5c4ee5" strokeWidth="2" strokeLinecap="round"
+                  strokeLinejoin="round">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                  </path>
+                </svg>
+              </div>
+              <div>
+                <h2 className="card-title">Randomly Selected User</h2>
+                <p className="card-subtitle">Click the button to pick a user</p>
+              </div>
+            </div>
+
+            <UserInfo user={selectedUser} handleRndUser={handleRandomUser} />
+          </div>
+        </div>
+
+      </div>
+    </div>
   )
 }
 
