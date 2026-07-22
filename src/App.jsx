@@ -43,7 +43,7 @@ const App = () => {
             </div>
 
             <div className="table-container">
-              <UserTable />
+              <UserTable userData={usersList}/>
             </div>
           </div>
         </div>

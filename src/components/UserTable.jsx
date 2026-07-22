@@ -2,7 +2,7 @@
 import React from 'react'
 import UsersListT from './UsersListT'
 
-const UserTable = () => {
+const UserTable = ({userData}) => {
     return (
         <table className="users-table">
             <thead>
@@ -14,7 +14,7 @@ const UserTable = () => {
                     <th></th>
                 </tr>
             </thead>
-            <UsersListT />
+            <UsersListT userData={userData} />
         </table>
     )
 }
