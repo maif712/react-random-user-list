@@ -7,6 +7,7 @@ export const getRoleClasses = (role) => {
         case 'editor': return { avatar: "avatar-green", badge: "role-editor" }
         case 'user': return { avatar: "avatar-blue", badge: "role-user-blue" }
         case 'moderator': return { avatar: "avatar-pink", badge: "role-moderator" }
+        default: return { avatar: 'avatar-gray', badge: 'role-default' };
     }
 }
 

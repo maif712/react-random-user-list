@@ -3,7 +3,7 @@ import { RollIcon } from "./UI/icons/Icons"
 
 
 
-const CardHeader = () => {
+const CardHeader = ({handlRndUser}) => {
     return (
         <div className="card-header">
             <div className="header-title-group">
@@ -23,7 +23,7 @@ const CardHeader = () => {
                 </div>
             </div>
             {/*TODO: Add onClick Event to the button */}
-            <Button icon={<RollIcon />} lebel={"Roll Random User"} cls="btn-primary"  />
+            <Button onClick={handlRndUser} icon={<RollIcon />} lebel={"Roll Random User"} cls="btn-primary"  />
         </div>
     )
 }
