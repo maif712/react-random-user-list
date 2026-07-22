@@ -53,7 +53,7 @@ const UserForm = ({handleAddUser}) => {
                     </InputWrapper>
                 </InputGroup>
             </div>
-            <Button icon={<PlusIcon />}  lebel={"Add New User"} cls='btn-primary btn-add' />
+            <Button dis={!name || !age || !role} icon={<PlusIcon />}  lebel={"Add New User"} cls='btn-primary btn-add' />
         </form>
     )
 }
