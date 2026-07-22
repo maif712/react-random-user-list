@@ -1,10 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CardHeader from './components/CardHeader'
 import UserForm from './components/UserForm'
 import UserTable from './components/UserTable'
 import UserInfo from './components/UserInfo'
 
 const App = () => {
+
+  const [usersList, setUsersList] = useState([])
+  const [selectedUser, setSelectedUser] = useState(null)
+
+  const addUser = (newUser) => {
+    setUsersList(prev => [...prev, newUser])
+  }
+
+  const handleRandomUser = () => {
+    const rndNumber = Math.floor(Math.random() * usersList.length)
+    const user = usersList[rndNumber]
+    setSelectedUser(user)
+  }
+
   return (
     <div className="app-container">
 
@@ -13,8 +27,8 @@ const App = () => {
         <div className="left-column">
 
           <div className="card form-card">
-            <CardHeader />
-            <UserForm />
+            <CardHeader handlRndUser={handleRandomUser} />
+            <UserForm handleAddUser={addUser} />
           </div>
 
           <div className="card list-card">
@@ -32,11 +46,16 @@ const App = () => {
                 </div>
                 <h2 className="card-title">Users List</h2>
               </div>
-              <div className="badge-count">5</div>
+              <div className="badge-count">{usersList.length}</div>
             </div>
 
             <div className="table-container">
-              <UserTable />
+              {
+                usersList.length === 0 ?
+                <p className='empty'>No user Yet!</p>
+                :
+                <UserTable userData={usersList}/>
+              }
             </div>
           </div>
         </div>
@@ -59,7 +78,7 @@ const App = () => {
               </div>
             </div>
 
-            <UserInfo />
+            <UserInfo user={selectedUser} handleRndUser={handleRandomUser} />
           </div>
         </div>
 

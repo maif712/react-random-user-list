@@ -1,18 +1,24 @@
 
 import React from 'react'
+import { getInitials, getRoleClasses } from '../utils/helperFunctions'
 
-const UserCardT = ({index, user}) => {
+const UserCardT = ({ index, name, age, role }) => {
+
+    const { avatar, badge } = getRoleClasses(role)
+    const initialName = getInitials(name)
+
+    
     return (
         <tr>
-            <td>1</td>
+            <td>{index + 1}</td>
             <td>
                 <div className="user-cell">
-                    <div className="avatar avatar-purple">AM</div>
-                    <span>Amin Mehran</span>
+                    <div className={`avatar ${avatar}`}>{initialName}</div>
+                    <span>{name}</span>
                 </div>
             </td>
-            <td>24</td>
-            <td><span className="role-badge role-admin">Admin</span></td>
+            <td>{age}</td>
+            <td><span className={`role-badge ${badge}`}>{role}</span></td>
             <td className="action-cell"><svg xmlns="http://www.w3.org/2000/svg" width="20"
                 height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                 strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
