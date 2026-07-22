@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CardHeader from './components/CardHeader'
 import UserForm from './components/UserForm'
 import UserTable from './components/UserTable'
 import UserInfo from './components/UserInfo'
 
 const App = () => {
+
+  const [usersList, setUsersList] = useState([])
+
+  const addUser = (newUser) => {
+    setUsersList(prev => [...prev, newUser])
+  }
+
   return (
     <div className="app-container">
 
@@ -14,7 +21,7 @@ const App = () => {
 
           <div className="card form-card">
             <CardHeader />
-            <UserForm />
+            <UserForm handleAddUser={addUser} />
           </div>
 
           <div className="card list-card">
